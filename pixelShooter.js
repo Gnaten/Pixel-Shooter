@@ -85,28 +85,28 @@ export class PixelShooter extends Scene {
         // Draw the scene's buttons, setup their actions and keyboard shortcuts, and monitor live measurements.
         //Player 1 Controls
         this.key_triggered_button("Move Left", ["ArrowLeft"], () => {
-            this.player_velocity[0] = -5; // Move left
+            this.player_velocity2[0] = -5; // Move left
         }, undefined, () => {
-            this.player_velocity[0] = 0; // Stop moving when key is released
+            this.player_velocity2[0] = 0; // Stop moving when key is released
         });
         this.new_line();
         this.key_triggered_button("Move Right", ["ArrowRight"], () => {
-            this.player_velocity[0] = 5; // Move right
+            this.player_velocity2[0] = 5; // Move right
         }, undefined, () => {
-            this.player_velocity[0] = 0; // Stop moving when key is released
+            this.player_velocity2[0] = 0; // Stop moving when key is released
         });
         this.new_line();
         this.key_triggered_button("Jump", ["ArrowUp"], () => {
-            if (this.on_ground) { // Only jump if on the ground
-                this.on_ground = false;
-                this.player_velocity[1] = 10; // Jump velocity
+            if (this.on_ground2) { // Only jump if on the ground
+                this.on_ground2 = false;
+                this.player_velocity2[1] = 10; // Jump velocity
             }
         });
         this.new_line();
         this.key_triggered_button("Shoot", ["Shift"], () => {
             // Create a new projectile
             let projectile = {
-                position: this.player_position.plus(vec3(0, 0.5, 0)), // Adjust as needed to align with player
+                position: this.player_position2.plus(vec3(0, 0.5, 0)), // Adjust as needed to align with player
                 velocity: vec3(5, 0, 0) // Adjust the speed and direction
             };
             this.projectiles.push(projectile);
@@ -117,28 +117,28 @@ export class PixelShooter extends Scene {
 
         //Player 2 Controls
         this.key_triggered_button("Move Left", ["a"], () => {
-            this.player_velocity2[0] = -5; // Move left
+            this.player_velocity[0] = -5; // Move left
         }, undefined, () => {
-            this.player_velocity2[0] = 0; // Stop moving when key is released
+            this.player_velocity[0] = 0; // Stop moving when key is released
         });
         this.new_line();
         this.key_triggered_button("Move Right", ["d"], () => {
-            this.player_velocity2[0] = 5; // Move right
+            this.player_velocity[0] = 5; // Move right
         }, undefined, () => {
-            this.player_velocity2[0] = 0; // Stop moving when key is released
+            this.player_velocity[0] = 0; // Stop moving when key is released
         });
         this.new_line();
         this.key_triggered_button("Jump", ["w"], () => {
-            if (this.on_ground2) { // Only jump if on the ground
-                this.on_ground2 = false;
-                this.player_velocity2[1] = 10; // Jump velocity
+            if (this.on_ground) { // Only jump if on the ground
+                this.on_ground = false;
+                this.player_velocity[1] = 10; // Jump velocity
             }
         });
         this.new_line();
         this.key_triggered_button("Shoot", ["q"], () => {
             // Create a new projectile
             let projectile = {
-                position: this.player_position2.plus(vec3(0, 0.5, 0)), // Adjust as needed to align with player
+                position: this.player_position.plus(vec3(0, 0.5, 0)), // Adjust as needed to align with player
                 velocity: vec3(5, 0, 0) // Adjust the speed and direction
             };
             this.projectiles.push(projectile);
@@ -262,8 +262,10 @@ export class PixelShooter extends Scene {
             }
         }
 
-        if (!this.on_ground || !this.on_ground2) {
+        if (!this.on_ground) {
             this.player_velocity[1] -= 9.8 * dt; // Continue applying gravity
+        }
+        if (!this.on_ground2) {
             this.player_velocity2[1] -= 9.8 * dt; // Continue applying gravity
         }
 
